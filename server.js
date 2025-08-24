@@ -46,7 +46,7 @@ const upload = multer({
 
 // OpenAI client
 const client = new OpenAI({
-    apiKey: "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"
+    apiKey: process.env.OPENAI_API_KEY,
 });
 
 // In-memory storage for scans

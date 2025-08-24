@@ -7,7 +7,6 @@ const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
 
-// GitHub service import
 let GitHubService;
 try {
     GitHubService = require('./services/github-service');

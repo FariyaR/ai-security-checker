@@ -328,7 +328,7 @@ ${numberedCode}`;
 
     try {
         console.log(`\n🤖 ========== CALLING OPENAI API ==========`);
-        console.log(`Model: gpt-5`);
+        console.log(`Model: gpt-4o`);
         console.log(`Prompt length: ${prompt.length} characters`);
         console.log(`Temperature: 0.1`);
         console.log(`Max tokens: 2000`);
@@ -337,7 +337,7 @@ ${numberedCode}`;
         console.log(`⏰ API call started at: ${new Date().toISOString()}`);
         
         const response = await client.chat.completions.create({
-            model: "gpt-5",
+            model: "gpt-4o",
             messages: [
                 {
                     role: "system",

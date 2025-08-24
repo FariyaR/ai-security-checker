@@ -7,6 +7,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+        const API_BASE_URL = window.location.hostname === 'localhost' 
+            ? 'http://localhost:8000' 
+            : 'https://ai-security-checker-production.up.railway.app';
+        
+        console.log('🔗 API Base URL:', API_BASE_URL);
         tailwind.config = {
             theme: {
                 extend: {
@@ -840,7 +845,7 @@ public class UserAuth {
                     console.log('Analyzing textarea content with GPT-5');
                 }
                 
-                const response = await fetch('http://localhost:8000/api/analyze/upload', {
+                const response = await fetch(`${API_BASE_URL}/api/analyze/upload`, {
                     method: 'POST',
                     body: formData
                 });
@@ -958,7 +963,7 @@ public class UserAuth {
                     console.log('GPT-5 analyzing enterprise code');
                 }
                 
-                const response = await fetch('http://localhost:8000/api/analyze/upload', {
+                const response = await fetch(`${API_BASE_URL}/api/analyze/upload`, {
                     method: 'POST',
                     body: formData
                 });
@@ -1044,7 +1049,7 @@ public class UserAuth {
             results.parentNode.insertBefore(loadingDiv, results);
             
             try {
-                const response = await fetch('http://localhost:8000/api/analyze/repo', {
+                const response = await fetch(`${API_BASE_URL}/api/analyze/repo`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ url: repoUrl })
@@ -1094,7 +1099,7 @@ public class UserAuth {
             results.parentNode.insertBefore(loadingDiv, results);
             
             try {
-                const response = await fetch('http://localhost:8000/api/analyze/repo', {
+                const response = await fetch(`${API_BASE_URL}/api/analyze/repo`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ url: repoUrl })
@@ -1346,7 +1351,7 @@ public class UserAuth {
         
         // Add real-time API status indicator
         function checkAPIStatus() {
-            fetch('http://localhost:8000/health')
+            fetch(`${API_BASE_URL}/health`)
                 .then(response => {
                     if (response.ok) {
                         console.log('✅ Backend API is running - Real analysis available');
@@ -1363,7 +1368,7 @@ public class UserAuth {
         // Add dashboard stats loading
         async function loadDashboardStats() {
             try {
-                const response = await fetch('http://localhost:8000/api/dashboard/stats');
+                const response = await fetch(`${API_BASE_URL}/api/dashboard/stats`);
                 if (response.ok) {
                     const stats = await response.json();
                     updateDashboardStats(stats);
@@ -1398,7 +1403,7 @@ public class UserAuth {
         // Add recent scans functionality
         async function loadRecentScans() {
             try {
-                const response = await fetch('http://localhost:8000/api/scans?limit=5');
+                const response = await fetch(`${API_BASE_URL}/api/scans?limit=5`);
                 if (response.ok) {
                     const data = await response.json();
                     updateRecentScans(data.scans);
@@ -1455,7 +1460,7 @@ public class UserAuth {
         // Track API calls
         const originalFetch = window.fetch;
         window.fetch = function(...args) {
-            if (args[0] && args[0].includes('localhost:8000/api/')) {
+            if (args[0] && args[0].includes(`${API_BASE_URL}/api/`)) {
                 trackAPIUsage();
             }
             return originalFetch.apply(this, args);

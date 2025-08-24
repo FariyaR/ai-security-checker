@@ -1,4 +1,3 @@
-
 const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
@@ -7,6 +6,7 @@ const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
 
+// GitHub service import
 let GitHubService;
 try {
     GitHubService = require('./services/github-service');
@@ -46,7 +46,7 @@ const upload = multer({
 
 // OpenAI client
 const client = new OpenAI({
-    apiKey: "process.env.OPENAI_API_KEY"
+    apiKey: process.env.OPENAI_API_KEY
 });
 
 // In-memory storage for scans
